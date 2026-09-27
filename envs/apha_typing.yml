@@ -1,0 +1,9 @@
+name: apha_typing
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - mlst=2.35.0
+  - seqsero2=1.3.2
+  - sistr_cmd=1.1.1

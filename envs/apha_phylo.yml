@@ -1,0 +1,10 @@
+name: apha_phylo
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - gubbins=3.3.4
+  - iqtree=2.4.0
+  - snippy[version
+  - snp-dists=0.8.2

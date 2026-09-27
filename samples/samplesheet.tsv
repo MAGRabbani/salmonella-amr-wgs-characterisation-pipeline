@@ -1,0 +1,37 @@
+Sl_No	Run_accession	Enterobase_name	Barcode	Serovar	Source	Country	Year	Submitting_lab	BioProject	Sample	Instrument_platform	Read_type	AMR_profile	Notes
+1	ERR5414640	SAL_DC0960AA	S05066_18	Enteritidis	Poultry	United Kingdom	2018	DTU Denmark	PRJEB43436	SAMEA8196423	ILLUMINA (NextSeq 500, PAIRED)	short_read	susceptible	~68x coverage confirmed
+2	SRR8451733	SAL_CB2719AA	PT1	Enteritidis	Poultry	United Kingdom	1987	Aarhus University	PRJNA503577	SAMN10764971	ILLUMINA	short_read	susceptible	Oldest; check QC (higher low-qual bases)
+3	ERR3843447	SAL_WA2561AA	GW_S01974-09	Enteritidis	Poultry	United Kingdom	2009	VLA Weybridge	PRJEB20997	SAMEA5039435	ILLUMINA	short_read	susceptible	VLA Weybridge (APHA predecessor)
+4	SRR5292190	SAL_HA7654AA	UK1	Enteritidis	Poultry	United Kingdom	unknown	FDA CFSAN	PRJNA336192	SAMN06051818	ILLUMINA	short_read	susceptible	Separate FDA project
+5	SRR5582410	SAL_JA5125AA	CFSAN061067	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146488	ILLUMINA	short_read	susceptible	CFSAN batch
+6	SRR5582408	SAL_JA5127AA	CFSAN061062	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146493	ILLUMINA	short_read	susceptible	CFSAN batch
+7	SRR5582400	SAL_JA5132AA	CFSAN061060	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146496	ILLUMINA	short_read	susceptible	CFSAN batch
+8	SRR5582394	SAL_JA5138AA	CFSAN061059	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146497	ILLUMINA	short_read	susceptible	CFSAN batch
+9	SRR5581810	SAL_JA5245AA	CFSAN061066	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146489	ILLUMINA	short_read	susceptible	CFSAN batch
+10	SRR5581803	SAL_JA5250AA	CFSAN061061	Enteritidis	Poultry	United Kingdom	2017	FDA CFSAN	PRJNA186035	SAMN07146494	ILLUMINA	short_read	susceptible	CFSAN batch
+11	ERR2208807	SAL_UA2036AA	S03591-16	Typhimurium	Poultry	United Kingdom	2016	APHA	PRJEB18442	SAMEA104410932	ILLUMINA	short_read	check own run	APHA-sequenced (job context)
+12	ERR2208799	SAL_UA2044AA	S03393-16	Typhimurium	Poultry	United Kingdom	2016	APHA	PRJEB18442	SAMEA104410930	ILLUMINA	short_read	check own run	APHA-sequenced (job context)
+13	ERR232523	SAL_BA5707AA	EWV4	Typhimurium	Poultry	United Kingdom	1996	Wellcome Sanger	PRJEB2189	SAMEA1707602	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1 penta-resistance
+14	ERR232511	SAL_BA5731AA	EWV2	Typhimurium	Poultry	United Kingdom	2003	Wellcome Sanger	PRJEB2189	SAMEA1707606	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1 penta-resistance
+15	ERR170663	SAL_BA6285AA	V107	Typhimurium	Poultry	United Kingdom	1998	Wellcome Sanger	PRJEB2189	SAMEA1521958	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1 penta-resistance
+16	ERR026042	SAL_DA4601AA	V53	Typhimurium	Poultry	United Kingdom	1996	Wellcome Sanger	PRJEB2189	SAMEA773591	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1; check gyrA_D87N
+17	ERR026051	SAL_DA4609AA	V63	Typhimurium	Poultry	United Kingdom	1999	Wellcome Sanger	PRJEB2189	SAMEA773605	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1; check gyrA_D87N
+18	ERR026016	SAL_DA4635AA	V12	Typhimurium	Poultry	United Kingdom	2000	Wellcome Sanger	PRJEB2189	SAMEA773504	ILLUMINA	short_read	aadA2;blaCARB-2;floR;sul1;tet(G)	DT104/SGI1; check gyrA_D87N
+19	SRR36865156	SAL_ID6986AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2022	APHA	PRJNA1403979	SAMN54691489	ILLUMINA	short_read	blaCTX-M-1;gyrA_D87G;sul1;tet(A);dfrA1	APHA; ESBL, likely pESI plasmid
+20	SRR36865157	SAL_ID6987AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2021	APHA	PRJNA1403979	SAMN54691488	ILLUMINA	short_read	gyrA_D87G;sul1;tet(A);dfrA1	APHA; MDR, no ESBL
+21	SRR36865158	SAL_ID6988AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2022	APHA	PRJNA1403979	SAMN54691487	ILLUMINA	short_read	blaCTX-M-1;gyrA_D87G;sul1;tet(A);dfrA1	APHA; ESBL, likely pESI plasmid
+22	SRR36865159	SAL_ID6989AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2021	APHA	PRJNA1403979	SAMN54691486	ILLUMINA	short_read	blaCTX-M-1;gyrA_D87G;sul1;tet(A);dfrA1	APHA; ESBL, likely pESI plasmid
+23	SRR36865160	SAL_ID6990AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2021	APHA	PRJNA1403979	SAMN54691485	ILLUMINA	short_read	aadA1;aph(3')-Ia;gyrA_D87G;sul1;tet(A);dfrA14	APHA; MDR, aminoglycoside
+24	SRR36865161	SAL_ID6991AA	Salmonella Infantis	Infantis	Poultry	United Kingdom	2021	APHA	PRJNA1403979	SAMN54691484	ILLUMINA	short_read	aadA1;aph(3')-Ia;gyrA_D87G;sul1;tet(A);dfrA14	APHA; MDR, aminoglycoside
+25	SRR38895790	SAL_ID3860AA	22-SA01205-0	Kentucky	Poultry	Germany	2022	BfR National Reference Lab	PRJNA937468	SAMN60495654	ILLUMINA	short_read	aadA1;aadA7;aac(3)-Id;blaTEM-1;gyrA_D87Y;gyrA_S83F;parC_S80I;sul1;sul2;tet(A);dfrA1;sat2	ST198 high-level FQ resistance
+26	SRR38925359	SAL_ID5344AA	23-SA01748-0	Kentucky	Poultry	Germany	2023	BfR National Reference Lab	PRJNA937468	SAMN60532678	ILLUMINA (NextSeq 500, PAIRED)	short_read	aadA7;aac(3)-Id;blaTEM-1;gyrA_D87Y;gyrA_S83F;parC_S80I;sul1;tet(A)	ST198; ~75x coverage confirmed
+27	ERR5414505	SAL_DC1567AA	M2018_ETBI_003557_01	Kentucky	Poultry	Hungary	2018	DTU Denmark	PRJEB43436	SAMEA8196287	ILLUMINA	short_read	blaCMY-2;blaTEM-1;gyrA_D87Y;gyrA_S83F;parC_S80I	ST198; AmpC (blaCMY-2)
+28	ERR7975869	SAL_MB4915AA	SAMEA12232722	Kentucky	Poultry	Spain	2017	FISABIO	PRJEB49974	SAMEA12232722	ILLUMINA	short_read	aadA7;aac(3)-Id;blaSHV-12;gyrA_D87N;gyrA_S83F;parC_S80I;sul1	ST198; ESBL (blaSHV-12)
+29	ERR9714932	SAL_NB0678AA	12CEB4452SAL	Kentucky	Poultry	France	2012	ANSES	PRJEB52344	SAMEA14093847	ILLUMINA	short_read	aadA7;aac(3)-Id;blaTEM-1;gyrA_D87N;gyrA_S83F;parC_S80I;sul1;tet(A)	ST198 MDR
+30	ERR9714962	SAL_NB0648AA	2015LSAL01587	Kentucky	Poultry	France	2015	ANSES	PRJEB52344	SAMEA14372670	ILLUMINA	short_read	susceptible (gyrA/parC wild-type)	ST198 susceptible outlier
+31	SRR30149748	SNU_Infantis_1	SAMN43048454	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048454	ILLUMINA (NextSeq 1000, PAIRED)	short_read_matched	check own run	Matched pair 1 (short) with SRR30149747; pESI hybrid demo; ~118x
+32	SRR30149747	SNU_Infantis_1	SAMN43048454	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048454	OXFORD_NANOPORE (GridION)	long_read_matched	check own run	Matched pair 1 (long) with SRR30149748; pESI hybrid demo; ~174x
+33	SRR30149746	SNU_Infantis_2	SAMN43048455	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048455	ILLUMINA (NextSeq 1000, PAIRED)	short_read_matched	check own run	Matched pair 2 (short) with SRR30149745; pESI hybrid demo; ~117x
+34	SRR30149745	SNU_Infantis_2	SAMN43048455	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048455	OXFORD_NANOPORE (GridION)	long_read_matched	check own run	Matched pair 2 (long) with SRR30149746; pESI hybrid demo; ~163x
+35	SRR30149758	SNU_Infantis_3	SAMN43048451	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048451	ILLUMINA (NextSeq 1000, PAIRED)	short_read_matched	check own run	Matched pair 3 (short) with SRR30149757; pESI hybrid demo; ~118x
+36	SRR30149757	SNU_Infantis_3	SAMN43048451	Infantis	Poultry (chicken slaughterhouse)	South Korea	2022	Seoul National University	PRJNA1145000	SAMN43048451	OXFORD_NANOPORE (GridION)	long_read_matched	check own run	Matched pair 3 (long) with SRR30149758; pESI hybrid demo; ~150x

@@ -1,0 +1,113 @@
+#!/bin/bash
+# =============================================================================
+# Script        : config.sh
+# Description   : Central configuration for the APHA Salmonella AMR WGS pipeline.
+#                 Covers download, QC, assembly, typing, AMR/virulence,
+#                 mobile elements, pan-genome, phylogeny and hybrid assembly.
+# Author        : Md Ataul Goni Rabbani <m.a.g.rabbani@roslin.ed.ac.uk>
+# Institution   : The Roslin Institute, University of Edinburgh
+# Last updated  : 28/09/2026
+# =============================================================================
+# Instructions  : Edit the paths below to match your system. Nothing else needs
+#                 changing — all scripts source this file.
+# =============================================================================
+
+# ---- Working directory -----------------------------------------------------
+PROJECT_DIR="/path/to/your/apha_salmonella_amr"
+
+# ---- Conda base (personal install; where conda.sh lives) --------------------
+CONDA_BASE="/path/to/your/conda"
+
+# ---- Input -----------------------------------------------------------------
+SAMPLES_DIR="${PROJECT_DIR}/samples"
+SAMPLE_SHEET="${SAMPLES_DIR}/samplesheet.tsv"
+
+# ---- Reference genome ------------------------------------------------------
+REF_DIR="${PROJECT_DIR}/ref"
+REF_GENOME="${REF_DIR}/reference.fna"                 # S. Typhimurium LT2 (ENA GCA_000006945.2)
+BUSCO_LINEAGE="${REF_DIR}/busco_downloads/lineages/enterobacterales_odb10"
+CHECKM2_DB="${REF_DIR}/checkm2_db"                                          # CheckM2 dir
+CHECKM2_DB_FILE="${CHECKM2_DB}/CheckM2_database/uniref100.KO.1.dmnd"        # CheckM2 DIAMOND file
+
+# ---- Per-serovar phylogeny references (ENA/GCA accessions) ------------------
+PHYLO_REF_DIR="${REF_DIR}/phylo_refs"
+REF_TYPHIMURIUM="${PHYLO_REF_DIR}/Typhimurium/GCA_000006945.2.fasta"   # LT2
+REF_ENTERITIDIS="${PHYLO_REF_DIR}/Enteritidis/GCA_000009505.1.fasta"   # P125109
+REF_INFANTIS="${PHYLO_REF_DIR}/Infantis/GCA_037776255.1.fasta"         # Z1323CSL0027, pESI+
+REF_KENTUCKY="${PHYLO_REF_DIR}/Kentucky/GCA_002952975.1.fasta"         # PU131
+
+# ---- Databases -------------------------------------------------------------
+# NOTE: PlasmidFinder DB ships inside the apha_amrPlasfinder env prefix.
+# This env lives under a separate conda dir (anaconda), not CONDA_BASE — verify
+# with `conda env list` and edit if your env prefix differs.
+PLASMIDFINDER_DB="/path/to/your/conda/envs/apha_amrPlasfinder/db/plasmidfinder/src"
+BAKTA_DB="${REF_DIR}/bakta_db/db-light"               # Bakta light database
+
+# ---- Conda environments ----------------------------------------------------
+ENV_WGS="apha_wgs"
+ENV_CHECKM2="checkm2"                            # CheckM2 (separate: needs python <3.9 or >3.12)
+ENV_TYPING="apha_typing"
+ENV_PLASMID="apha_amrPlasfinder"
+ENV_PAN="apha_pangenome"
+ENV_LONG="apha_longread"
+ENV_FIG="apha_figures"
+
+# ---- Output ----------------------------------------------------------------
+RESULTS_DIR="${PROJECT_DIR}/results"
+
+RAW_DIR="${RESULTS_DIR}/00_raw_reads"
+QC_DIR="${RESULTS_DIR}/01_qc"
+FASTQC_RAW_DIR="${QC_DIR}/01_fastqc"
+
+MULTIQC_DIR="${RESULTS_DIR}/02_multiqc"
+TRIM_DIR="${QC_DIR}/01a_trim"
+FASTP_REPORTS="${TRIM_DIR}/fastp_reports"
+FASTQC_TRIM_DIR="${QC_DIR}/01b_fastqc_trim"
+
+ASSEMBLY_DIR="${RESULTS_DIR}/03_assembly"
+
+ASSEMBLY_QC_DIR="${RESULTS_DIR}/03a_assembly_qc"
+QUAST_DIR="${ASSEMBLY_QC_DIR}/01_quast"
+BUSCO_DIR="${ASSEMBLY_QC_DIR}/02_busco"
+CHECKM2_DIR="${ASSEMBLY_QC_DIR}/03_checkm2"
+
+SEROTYPE_DIR="${RESULTS_DIR}/04_serotype_mlst"
+
+AMR_DIR="${RESULTS_DIR}/05_amr_virulence"
+
+PLASMID_DIR="${RESULTS_DIR}/06_plasmid_mge"
+
+ANNOT_DIR="${RESULTS_DIR}/07_annotation"
+PANGENOME_DIR="${RESULTS_DIR}/08_pangenome"
+PHYLO_DIR="${RESULTS_DIR}/09_phylogeny"
+LONGREAD_DIR="${RESULTS_DIR}/10_longread_hybrid"
+FIGURES_DIR="${RESULTS_DIR}/11_figures"
+MULTIQC_FINAL_DIR="${RESULTS_DIR}/12_multiqc_final"
+
+LOG_DIR="${PROJECT_DIR}/logs"
+TMP_DIR="${PROJECT_DIR}/tmp"
+
+# ---- Compute ---------------------------------------------------------------
+THREADS=8
+MEM="32G"
+
+
+export PROJECT_DIR CONDA_BASE \
+        SAMPLES_DIR SAMPLE_SHEET \
+        REF_DIR REF_GENOME BAKTA_DB CHECKM2_DB BUSCO_LINEAGE PLASMIDFINDER_DB \
+        PHYLO_REF_DIR REF_TYPHIMURIUM REF_ENTERITIDIS REF_INFANTIS REF_KENTUCKY \
+        ENV_WGS ENV_CHECKM2 ENV_TYPING ENV_PLASMID ENV_PAN ENV_LONG ENV_FIG \
+        RESULTS_DIR \
+        RAW_DIR QC_DIR FASTQC_RAW_DIR \
+        MULTIQC_DIR \
+        TRIM_DIR FASTP_REPORTS FASTQC_TRIM_DIR \
+        ASSEMBLY_DIR ASSEMBLY_QC_DIR \
+        QUAST_DIR BUSCO_DIR CHECKM2_DIR CHECKM2_DB_FILE \
+        SEROTYPE_DIR AMR_DIR PLASMID_DIR \
+        ANNOT_DIR PANGENOME_DIR PHYLO_DIR \
+        LONGREAD_DIR FIGURES_DIR MULTIQC_FINAL_DIR \
+        LOG_DIR TMP_DIR \
+        THREADS MEM
+
+# End of config.sh
+

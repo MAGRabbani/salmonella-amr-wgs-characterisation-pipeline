@@ -1,0 +1,33 @@
+# ---- Local configuration (real paths — never publish) ----
+config/config.sh
+scripts/00_export_envs.sh
+
+# ---- Generated sample lists (samplesheet.tsv IS published) ----
+samples/short_read_ids.txt
+samples/longread_pairs.tsv
+
+# ---- Pipeline outputs ----
+results/
+logs/
+tmp/
+ref/
+
+# ---- Large data / index files ----
+*.fastq.gz
+*.fq.gz
+*.fasta
+*.fa
+*.fna
+*.fai
+*.gz
+*.bam
+*.bai
+*.gff3
+*.gbff
+*.treefile
+*.aln
+*.Rtab
+*.png
+
+# ---- OS clutter ----
+.DS_Store

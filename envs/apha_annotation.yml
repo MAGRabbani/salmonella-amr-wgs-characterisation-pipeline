@@ -1,0 +1,10 @@
+name: apha_annotation
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bakta=1.9.4
+  - prokka=1.15.6
+  - python=3.10.14
+ - pyhmmer=0.10.15    # pin: 0.12.3 breaks Bakta ('str' has no attribute 'decode')

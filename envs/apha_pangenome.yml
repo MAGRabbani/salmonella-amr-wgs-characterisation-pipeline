@@ -1,0 +1,8 @@
+name: apha_pangenome
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - mafft=7.526
+  - panaroo=1.8.0
