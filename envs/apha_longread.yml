@@ -7,4 +7,4 @@ dependencies:
   - filtlong=0.3.1
   - flye=2.9.6
   - nanoplot=1.48.0
-  - unicycler[version
+  - unicycler=0.5.1
