@@ -31,3 +31,4 @@ ref/
 
 # ---- OS clutter ----
 .DS_Store
+scripts/fig_infantis_pesi.R
