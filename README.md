@@ -25,8 +25,6 @@ hands-on bioinformatics training, and published tool documentation and tutorials
 > MLST, AMR & virulence, plasmids/MGEs, pan-genome, phylogeny, hybrid assembly,
 > all from one config.
 
-
-
 ## Pipeline overview
 
 Whole-genome sequencing pipeline for four poultry-associated *Salmonella*
@@ -49,43 +47,45 @@ pan-genome → phylogeny → long-read hybrid → figures → final MultiQC.
 
 ## What each step does (at a glance)
 
-| Step | Script                                | Does                                                      | Key output                                    |
-| ---- | ------------------------------------- | --------------------------------------------------------- | --------------------------------------------- |
-| 00   | `00_make_sample_lists.sh`             | Build sample sheet + read-set lists (run first)           | `samples/*.tsv`, `samples/*.txt`              |
-| 00a  | `00a_download_raw_reads.sh`           | Fetch raw FASTQ from ENA (Illumina + ONT)                 | `results/00_raw_reads/`                       |
-| 00b  | `00b_download_ref_genomes.sh`         | Download the main reference genome (LT2)                  | `ref/reference.fna`                           |
-| 00c  | `00c_setup_databases.sh`              | Stage AMR/plasmid/annotation databases                    | `ref/` databases                              |
-| 01   | `01_fastqc.sh`                        | Raw-read quality control (FastQC), array job              | `results/01_qc/01_fastqc/`                    |
-| 01a  | `01a_trim.sh`                         | Adapter/quality trimming (fastp), array job               | `results/01_qc/01a_trim/`                     |
-| 01b  | `01b_fastqc_trim.sh`                  | FastQC on trimmed reads, array job                        | `results/01_qc/01b_fastqc_trim/`              |
-| 02   | `02_multiqc.sh`                       | Aggregate raw-read QC                                     | `results/02_multiqc/`                         |
-| 02a  | `02a_multiqc_trim.sh`                 | Aggregate trimmed-read QC                                 | `results/02_multiqc/`                         |
-| 03   | `03_assembly.sh`                      | De novo assembly (Shovill/SPAdes), array job              | `results/03_assembly/<iso>/`                  |
-| 03a  | `03a_assembly_qc.sh`                  | QUAST + BUSCO + CheckM2, array job                        | `results/03a_assembly_qc/`                    |
-| 03b  | `03b_assembly_qc_summary.sh`          | Assembly QC summary + coverage gate                       | `results/03a_assembly_qc/`                    |
-| 04   | `04_serotype_mlst.sh`                 | MLST → SISTR → SeqSero2, array job                        | `results/04_serotype_mlst/`                   |
-| 04a  | `04a_serotype_mlst_typing_summary.sh` | Serovar/ST concordance table                              | `results/04_serotype_mlst/typing_summary.tsv` |
-| 05   | `05_amr_virulence.sh`                 | AMRFinderPlus + ABRicate, array job                       | `results/05_amr_virulence/`                   |
-| 05a  | `05a_amr_summary.sh`                  | Gene matrix, phenotype/MDR, virulence counts              | `results/05_amr_virulence/`                   |
-| 06   | `06_plasmid_mge.sh`                   | MOB-suite + PlasmidFinder, array job                      | `results/06_plasmid_mge/`                     |
-| 06a  | `06a_plasmid_summary.sh`              | AMR gene location (chromosome vs plasmid)                 | `results/06_plasmid_mge/`                     |
-| 07   | `07_annotation.sh`                    | Genome annotation (Bakta), array job                      | `results/07_annotation/<iso>/`                |
-| 07a  | `07a_annotation_summary.sh`           | Per-isolate CDS/tRNA/rRNA summary                         | `results/07_annotation/`                      |
-| 08   | `08_pangenome.sh`                     | Pan-genome (Panaroo)                                      | `results/08_pangenome/`                       |
-| 08a  | `08a_pangenome_summary.sh`            | Core/accessory + serovar-specific genes                   | `results/08_pangenome/`                       |
-| 09   | `09_phylo_core.sh`                    | Whole-set core-gene tree (IQ-TREE)                        | `results/09_phylogeny/01_core_gene_tree/`     |
-| 09a  | `09a_download_phylo_refs.sh`          | Download per-serovar phylo refs (Ent/Inf/Kent) + link LT2 | `ref/phylo_refs/`                             |
-| 09b  | `09b_phylo_snippy.sh`                 | Per-serovar SNP trees (Snippy→Gubbins→IQ-TREE), array     | `results/09_phylogeny/02_snippy/`             |
-| 09c  | `09c_phylo_summary.sh`                | SNP-distance matrices + outlier exclusion                 | `results/09_phylogeny/03_snp_distances/`      |
-| 10   | `10_longread_hybrid.sh`               | Hybrid assembly of 3 Infantis pairs, array job            | `results/10_longread_hybrid/`                 |
-| 10a  | `10a_longread_summary.sh`             | Assembly + plasmid overview                               | `results/10_longread_hybrid/`                 |
-| 11   | `11_figures.sh` (+ `11a`–`11e`.R)     | Presentation figures (R: ggtree, pheatmap)                | `results/11_figures/`                         |
-| 12   | `12_multiqc_final.sh`                 | Final aggregated QC across the run                        | `results/12_multiqc_final/`                   |
+| Step | Script                                | Does                                                      | Key output                                                       |
+| ---- | ------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------- |
+| 00   | `00_make_sample_lists.sh`             | Build sample sheet + read-set lists (run first)           | `samples/*.tsv`, `samples/*.txt`                                 |
+| 00a  | `00a_download_raw_reads.sh`           | Fetch raw FASTQ from ENA (Illumina + ONT)                 | `results/00_raw_reads/`                                          |
+| 00b  | `00b_download_ref_genomes.sh`         | Download the main reference genome (LT2)                  | `ref/reference.fna`                                              |
+| 00c  | `00c_setup_databases.sh`              | Stage AMR/plasmid/annotation databases                    | `ref/` databases                                                 |
+| 01   | `01_fastqc.sh`                        | Raw-read quality control (FastQC), array job              | `results/01_qc/01_fastqc/`                                       |
+| 01a  | `01a_trim.sh`                         | Adapter/quality trimming (fastp), array job               | `results/01_qc/01a_trim/`                                        |
+| 01b  | `01b_fastqc_trim.sh`                  | FastQC on trimmed reads, array job                        | `results/01_qc/01b_fastqc_trim/`                                 |
+| 02   | `02_multiqc.sh`                       | Aggregate raw-read QC                                     | `results/02_multiqc/`                                            |
+| 02a  | `02a_multiqc_trim.sh`                 | Aggregate trimmed-read QC                                 | `results/02_multiqc/`                                            |
+| 03   | `03_assembly.sh`                      | De novo assembly (Shovill/SPAdes), array job              | `results/03_assembly/<iso>/`                                     |
+| 03a  | `03a_assembly_qc.sh`                  | QUAST + BUSCO + CheckM2, array job                        | `results/03a_assembly_qc/`                                       |
+| 03b  | `03b_assembly_qc_summary.sh`          | Assembly QC summary + coverage gate                       | `results/03a_assembly_qc/`                                       |
+| 03c  | ```03c_assembly_stats_report.py```    | Document-ready assembly-QC table + description            | ```results/03a_assembly_qc/assembly_qc_report.{tsv,md}```        |
+| 04   | `04_serotype_mlst.sh`                 | MLST → SISTR → SeqSero2, array job                        | `results/04_serotype_mlst/`                                      |
+| 04a  | `04a_serotype_mlst_typing_summary.sh` | Serovar/ST concordance table                              | `results/04_serotype_mlst/typing_summary.tsv`                    |
+| 05   | `05_amr_virulence.sh`                 | AMRFinderPlus + ABRicate, array job                       | `results/05_amr_virulence/`                                      |
+| 05a  | `05a_amr_summary.sh`                  | Gene matrix, phenotype/MDR, virulence counts              | `results/05_amr_virulence/`                                      |
+| 06   | `06_plasmid_mge.sh`                   | MOB-suite + PlasmidFinder, array job                      | `results/06_plasmid_mge/`                                        |
+| 06a  | `06a_plasmid_summary.sh`              | AMR gene location (chromosome vs plasmid)                 | `results/06_plasmid_mge/`                                        |
+| 07   | `07_annotation.sh`                    | Genome annotation (Bakta), array job                      | `results/07_annotation/<iso>/`                                   |
+| 07a  | `07a_annotation_summary.sh`           | Per-isolate CDS/tRNA/rRNA summary                         | `results/07_annotation/`                                         |
+| 08   | `08_pangenome.sh`                     | Pan-genome (Panaroo)                                      | `results/08_pangenome/`                                          |
+| 08a  | `08a_pangenome_summary.sh`            | Core/accessory + serovar-specific genes                   | `results/08_pangenome/`                                          |
+| 09   | `09_phylo_core.sh`                    | Whole-set core-gene tree (IQ-TREE)                        | `results/09_phylogeny/01_core_gene_tree/`                        |
+| 09a  | `09a_download_phylo_refs.sh`          | Download per-serovar phylo refs (Ent/Inf/Kent) + link LT2 | `ref/phylo_refs/`                                                |
+| 09b  | `09b_phylo_snippy.sh`                 | Per-serovar SNP trees (Snippy→Gubbins→IQ-TREE), array     | `results/09_phylogeny/02_snippy/`                                |
+| 09c  | `09c_phylo_summary.sh`                | SNP-distance matrices + outlier exclusion                 | `results/09_phylogeny/03_snp_distances/`                         |
+| 10   | `10_longread_hybrid.sh`               | Hybrid assembly of 3 Infantis pairs, array job            | `results/10_longread_hybrid/`                                    |
+| 10a  | `10a_longread_summary.sh`             | Assembly + plasmid overview                               | `results/10_longread_hybrid/`                                    |
+| 10b  | ```10b_longread_assembly_stat.sh```   | QUAST contiguity stats for hybrid assemblies              | ```results/10_longread_hybrid/hybrid_assembly_stats```           |
+| 10c  | ```10c_assembly_stats_report.py```    | Document-ready hybrid-assembly table + description        | ```results/10_longread_hybrid/hybrid_assembly_report.{tsv,md}``` |
+| 11   | `11_figures.sh` (+ `11a`–`11e`.R)     | Presentation figures (R: ggtree, pheatmap)                | `results/11_figures/`                                            |
+| 12   | `12_multiqc_final.sh`                 | Final aggregated QC across the run                        | `results/12_multiqc_final/`                                      |
+| 13   | ```13_report_summary.py```            | Consolidated summary report across the run                | ```results/13_summary_report/summary_report.md```                |
 
 > Directory paths above match the variables defined in `config/config.sh`.
 > Logs are written to `logs/`; scratch to `tmp/`.
-
-
 
 ## Repository layout
 
@@ -100,8 +100,6 @@ apha_salmonella_amr/
 ├── logs/                # job logs
 └── README.md
 ```
-
-
 
 ## Requirements
 
@@ -118,14 +116,14 @@ apha_salmonella_amr/
   the analysis commands inside each script are unchanged; only the job-submission
   header and the array indexing need adapting. The summary and figure steps are
   plain `bash` and run anywhere.
+- **Python 3** — the reporting scripts (`03c`, `10c`, `13`) use only the Python 3
+  standard library; no conda environment or extra packages are required.
 
 > **Memory note:** the per-isolate job headers request memory per task. Two tools
 > were tuned to stay within a bounded allocation — NanoPlot was dropped (its
 > numpy/OpenBLAS backend reserved very large amounts of virtual memory) and
 > Shovill's Java `--ram` is held below the total requested. Adjust the resource
 > requests in the script headers to suit your system.
-
-
 
 ## Configuration
 
@@ -144,8 +142,6 @@ changing. Key variables:
 | `ENV_*`                            | Conda environment names (one per stage)   |
 | `RESULTS_DIR` (+ per-step dirs)    | Output locations for each step            |
 | `THREADS`                          | Compute default (8; overridden per step)  |
-
-
 
 ## Environment strategy
 
@@ -196,27 +192,23 @@ conda env create -f envs/apha_figures.yml
 > the start of your session. Set `CONDA_BASE` in `config.sh` to your conda
 > install; the setup script (00c) sources it for you.
 
-
-
 ## Dataset
 
 36 sequencing runs in total: **32 short-read isolates** that assembled and
 passed QC, plus **3 matched Nanopore (GridION)** runs for the Infantis long-read
 pairs.
 
-| Serovar     | n    | Dominant ST       | Notable                                  |
-| ----------- | ---- | ----------------- | ---------------------------------------- |
-| Enteritidis | 10   | ST11 (+ 1 ST616)  | clean AMR background                     |
-| Infantis    | 9    | ST32              | pESI+ cluster + 2 pESI-negative isolates |
-| Typhimurium | 7    | ST19              | SGI1 chromosomal MDR                     |
-| Kentucky    | 6    | ST198 (+ 1 ST314) | FQ-resistant; ST314 is a distant outlier |
+| Serovar     | n   | Dominant ST       | Notable                                  |
+| ----------- | --- | ----------------- | ---------------------------------------- |
+| Enteritidis | 10  | ST11 (+ 1 ST616)  | clean AMR background                     |
+| Infantis    | 9   | ST32              | pESI+ cluster + 2 pESI-negative isolates |
+| Typhimurium | 7   | ST19              | SGI1 chromosomal MDR                     |
+| Kentucky    | 6   | ST198 (+ 1 ST314) | FQ-resistant; ST314 is a distant outlier |
 
 One isolate (**ERR026016**) was dropped at the coverage gate — 17× coverage and
 a 771 kb assembly, well below the 30× threshold. QC reports are kept for all 33
 for audit; analysis runs on the 32 that passed (enforced via
 `samples/short_read_ids.txt`).
-
-## How samples are chosen
 
 The pipeline starts from a curated list of ENA/SRA run accessions. Samples were
 selected as publicly available Illumina paired-end runs of *Salmonella enterica*
@@ -228,8 +220,6 @@ The run accessions are listed in `samples/accessions.txt` (one per line),
 **provided in this repository**. Step-00 reads this file to build the sample
 sheet and read-set lists. To run on your own data, edit `accessions.txt` and
 re-run Step-00 — nothing else needs changing.
-
-
 
 ## How samples are chosen
 
@@ -247,8 +237,6 @@ sheet to build the read-set lists the pipeline runs on. To run on your own data,
 replace `samplesheet.tsv` and re-run Step-00.
 
 ---
-
-
 
 ## Step-00: Build sample lists
 
@@ -322,8 +310,6 @@ bash scripts/00_make_sample_lists.sh
 
 ---
 
-
-
 ## Step-00a: Download raw reads
 
 Downloads the FASTQ for every run in the sample sheet from ENA, resolving each
@@ -367,8 +353,6 @@ bash scripts/00a_download_raw_reads.sh
 - If an accession returns no FASTQ URL it is logged and skipped, not fatal.
 
 ---
-
-
 
 ## Step-00b: Download reference genome
 
@@ -474,8 +458,6 @@ bash scripts/00c_setup_databases.sh
   `--type light` to `--type full`.
 
 ---
-
-
 
 ## Step-01: Read QC (FastQC)
 
@@ -650,8 +632,6 @@ qsub scripts/02a_multiqc_trim.sh
 
 ---
 
-
-
 ## Step-03: De novo assembly (Shovill)
 
 Assembles each isolate's trimmed reads into a draft genome. Runs as an **SGE
@@ -778,7 +758,61 @@ bash scripts/03b_assembly_qc_summary.sh
 
 ---
 
+## Step-03c: Assembly QC report (document-ready)
 
+Consolidates the step-03a QC outputs into a single document-ready table,
+annotated with serovar and country and an estimated genome coverage. A
+**login-node summary** script (Python 3, standard library only).
+
+### Prerequisite
+
+- No conda env needed — Python 3 standard library only.
+- Step-03a complete (QUAST, BUSCO, CheckM2 present); fastp JSONs (step 01a) and
+  the sample sheet present.
+
+### What it does
+
+- Merges QUAST contiguity (size, contigs, N50, L50, GC), CheckM2
+  completeness/contamination and BUSCO completeness per isolate.
+- Estimates genome coverage as post-trim bases (fastp JSON) / assembly size —
+  the same metric as the step-03b coverage gate.
+- Adds serovar (from `typing_summary.tsv`) and country (from the sample sheet).
+- Writes a TSV, a Markdown table and an auto-generated description paragraph.
+
+### Outputs (`results/03a_assembly_qc/`)
+
+- `assembly_qc_report.tsv` — per-isolate merged QC table.
+- `assembly_qc_report.md` — the same table plus a document-ready description.
+
+### Result on this dataset
+
+All 32 isolates: assembly size 4.63–5.03 Mb; N50 92.5–547 kb; GC 51.9–52.3%;
+estimated coverage 35–372×; CheckM2 100% complete, 0.04–0.64% contamination;
+BUSCO 99.1–99.5% (enterobacterales_odb10). Isolates span six countries
+(UK 23, South Korea 3, France 2, Germany 2, Hungary 1, Spain 1).
+
+### Run
+
+```bash
+# navigate to the project directory
+cd "${PROJECT_DIR}"
+# source config (exports the paths the script reads)
+source config/config.sh
+# run script
+python3 scripts/03c_assembly_stats_report.py
+```
+
+
+
+### Notes
+
+- Pure Python 3 standard library — no conda env or extra packages required.
+- Coverage is an estimate (post-trim bases / assembly size), not mapped-read
+  depth; it matches the step-03b gate logic.
+- The gate-failed isolate (ERR026016) is absent: the report is built from the
+  QUAST/CheckM2/BUSCO outputs, which only contain the 32 that passed.
+
+---
 
 ## Step-04: Serotyping & MLST
 
@@ -865,8 +899,6 @@ bash scripts/04a_serotype_mlst_typing_summary.sh
   column in the sample sheet.
 
 ---
-
-
 
 ## Step-05: AMR & virulence detection
 
@@ -1034,7 +1066,12 @@ where" logic set up in Step-05. A **login-node summary** script.
   chromosomal. pSLT (AB460, IncFIB+IncFII) present in all Typhimurium.
 - **Infantis** — 7 chromosomal / 34 plasmid; the pESI cluster (AC358, IncFIB,
   ~273 kb) in 7/9 Infantis (absent from the two short-read pESI-negative
-  isolates, SRR30149746 and SRR30149758).
+  isolates, SRR30149746 and SRR30149758). The ESBL *bla*CTX-M-1 sits on a
+  **separate** plasmid (cluster AB953) in the UK carriers, while pESI (AC358)
+  carries other resistance genes; the ESBL is carried directly on pESI only in
+  the Korean isolate SRR30149748 (*bla*CTX-M-65). Different ESBL variants on
+  different plasmids across countries is consistent with independent acquisition
+  rather than a single plasmid spreading.
 - **Kentucky** — 29 chromosomal / 7 plasmid.
 - One *aadA2*-on-pSLT in ERR232523 — an integron-mobility case (resistance
   normally chromosomal in Typhimurium, here caught on a plasmid).
@@ -1058,8 +1095,6 @@ bash scripts/06a_plasmid_summary.sh
   horizontally mobile.
 
 ---
-
-
 
 ## Step-07: Genome annotation (Bakta)
 
@@ -1149,8 +1184,6 @@ bash scripts/07a_annotation_summary.sh
   false-flagged them.
 
 ---
-
-
 
 ## Step-08: Pan-genome (Panaroo)
 
@@ -1245,8 +1278,6 @@ bash scripts/08a_pangenome_summary.sh
   floor, and is worth stating explicitly whenever the number is shown.
 
 ---
-
-
 
 ## Step-09: Whole-set core-gene phylogeny
 
@@ -1397,12 +1428,12 @@ extreme outliers. A **login-node summary** script.
 
 ### Result on this dataset
 
-| Serovar     | n    | SNP range | Note                                             |
-| ----------- | ---- | --------- | ------------------------------------------------ |
-| Typhimurium | 7    | 18–60     | tight cluster                                    |
-| Enteritidis | 10   | 2–508     | ERR3843447 is an outlier                         |
-| Infantis    | 9    | 3–305     | 746/758 a distant sublineage; pESI+ cluster 3–14 |
-| Kentucky    | 5    | 11–80     | ERR9714962 auto-excluded (median 39,897)         |
+| Serovar     | n   | SNP range | Note                                             |
+| ----------- | --- | --------- | ------------------------------------------------ |
+| Typhimurium | 7   | 18–60     | tight cluster                                    |
+| Enteritidis | 10  | 2–508     | ERR3843447 is an outlier                         |
+| Infantis    | 9   | 3–305     | 746/758 a distant sublineage; pESI+ cluster 3–14 |
+| Kentucky    | 5   | 11–80     | ERR9714962 auto-excluded (median 39,897)         |
 
 The Infantis result is one line of the five-way pESI evidence: the two
 pESI-negative isolates (SRR30149746, SRR30149758) form a distant sublineage,
@@ -1427,8 +1458,6 @@ bash scripts/09c_phylo_summary.sh
   SNP-distance stage; it may still appear as a flagged tip in the fig2 tree.
 
 ---
-
-
 
 ## Step-10: Long-read hybrid assembly
 
@@ -1530,6 +1559,93 @@ bash scripts/10a_longread_summary.sh
 
 ---
 
+## Step-10b: Hybrid assembly stats (QUAST)
+
+Runs QUAST (reference-free) on the three Infantis hybrid assemblies from
+step 10, reporting contig N50, largest contig, total length and GC. A
+**login-node** script (QUAST is light; no `qsub`).
+
+### Prerequisite
+
+- Conda env (apha_wgs):
+- Step-10 complete (hybrid assemblies present).
+
+### What it does
+
+- Reads the long-read pairs (`longread_pairs.tsv`) to locate each hybrid
+  assembly.
+- Runs QUAST across the three assemblies, producing one combined report.
+
+### Outputs (`results/10_longread_hybrid/hybrid_assembly_stats/`)
+
+- `report.tsv` (+ `report.txt`, `report.html`, plots) — QUAST contiguity report.
+
+### Result on this dataset
+
+Contig N50: SRR30149748 2.99 Mb (17 contigs); SRR30149746 4.54 Mb (4 contigs);
+SRR30149758 4.47 Mb (7 contigs). L50 = 1 and zero ambiguous bases for all three.
+
+### Run
+
+```bash
+# navigate to the project directory
+cd "${PROJECT_DIR}"
+# run script
+bash scripts/10b_longread_assembly_stat.sh
+```
+
+### Notes
+
+- Reference-free QUAST: contiguity metrics only (no misassembly/genome-fraction).
+- The pESI carrier (748) is the most fragmented, reflecting the repeat-rich
+  megaplasmid; the plasmid-free isolates assemble into near-complete chromosomes.
+
+---
+
+## Step-10c: Hybrid assembly report (document-ready)
+
+Merges the step-10b QUAST metrics with the step-10a MOB-suite plasmid overview
+into one document-ready table. A **login-node summary** script (Python 3,
+standard library only).
+
+### Prerequisite
+
+- No conda env needed — Python 3 standard library only.
+- Step-10b (QUAST) and step-10a (plasmid overview) complete.
+
+### What it does
+
+- Merges QUAST contiguity (size, contigs, N50, L50, GC) with the plasmid count
+  and largest replicon per isolate.
+- Writes a TSV, a Markdown table and an auto-generated description.
+
+### Outputs (`results/10_longread_hybrid/`)
+
+- `hybrid_assembly_report.tsv` — merged hybrid-assembly table.
+- `hybrid_assembly_report.md` — the same table plus a description.
+
+### Result on this dataset
+
+SRR30149748 5.04 Mb / 17 contigs / IncFIB plasmid (pESI); SRR30149746 4.70 Mb /
+4 contigs / no plasmid; SRR30149758 4.65 Mb / 7 contigs / no plasmid. The ~0.3–0.4
+Mb size excess in the carrier is consistent with the ~313 kb pESI megaplasmid.
+
+### Run
+
+```bash
+# navigate to the project directory
+cd "${PROJECT_DIR}"
+# source config (exports the paths the script reads)
+source config/config.sh
+# run script
+python3 scripts/10c_assembly_stats_report.py
+```
+
+### Notes
+
+- Pure Python 3 standard library — no conda env or extra packages required.
+- Plasmid columns come from MOB-suite (step 10a), not contig-size heuristics.
+
 ## Key finding: pESI carriage confirmed five independent ways
 
 SRR30149748 carries the pESI megaplasmid; the other two long-read Infantis
@@ -1545,12 +1661,13 @@ agree:
    748, none in the others.
 
 This convergence is the strongest single result in the project: a mobile,
-ESBL-carrying megaplasmid identified and cross-validated by independent methods —
-exactly the kind of call that matters for surveillance.
+conjugative megaplasmid identified and cross-validated by independent methods —
+exactly the kind of call that matters for surveillance. The ESBL cargo it carries
+differs by origin (*bla*CTX-M-65 on pESI in the Korean isolate; *bla*CTX-M-1 on a
+separate plasmid, AB953, in the UK carriers), consistent with independent
+acquisition rather than one plasmid spreading between countries.
 
 ---
-
-
 
 ## Step-11: Data visualisation (R)
 
@@ -1628,8 +1745,6 @@ bash scripts/11_figures.sh
 
 ---
 
-
-
 ## Step-12: Final aggregated QC (MultiQC)
 
 Pulls every QC output across the run into one MultiQC report — FastQC (raw and
@@ -1673,7 +1788,60 @@ bash scripts/12_multiqc_final.sh
 
 ---
 
+---
 
+## Step-13: Consolidated summary report
+
+Pulls the per-step summary tables into one document-ready report: dataset
+overview, acquired AMR and mutations, multidrug resistance, resistance by
+antimicrobial class, a critically-important ESBL callout, and resistance
+determinant location. A **login-node summary** script (Python 3, standard
+library only).
+
+### Prerequisite
+
+- No conda env needed — Python 3 standard library only.
+- Steps 04a, 05a and 06a complete (summary tables present).
+
+### What it does
+
+- Reads the typing summary, AMR matrix, phenotype/MDR table and gene-location
+  table.
+- Builds serovar/ST counts, per-isolate AMR gene tallies, an MDR count,
+  per-serovar resistance by antimicrobial class, an ESBL (CTX-M) callout with
+  plasmid location, and chromosome-vs-plasmid determinant counts.
+- Classifies genes to antimicrobial class by name pattern, so new genes are
+  handled automatically.
+
+### Outputs (`results/13_summary_report/`)
+
+- `summary_report.md` — the consolidated, document-ready report.
+
+### Result on this dataset
+
+32 isolates; 19 carry acquired resistance or mutations; 18 are MDR. ESBLs:
+*bla*CTX-M-65 on pESI (AC358) in the Korean isolate SRR30149748; *bla*CTX-M-1 on
+a separate plasmid (AB953) in three UK Infantis — different ESBL variants on
+different plasmids, consistent with independent acquisition.
+
+### Run
+
+```bash
+# navigate to the project directory
+cd "${PROJECT_DIR}"
+# source config (exports the paths the script reads)
+source config/config.sh
+# run script
+python3 scripts/13_report_summary.py
+```
+
+### Notes
+
+- Pure Python 3 standard library — no conda env or extra packages required.
+- Antimicrobial-class assignment is pattern-based on gene names; CTX-M enzymes
+  are flagged as ESBLs (third-generation cephalosporin resistance).
+- Missing input tables are skipped with a WARN, so a partial run still produces
+  a report.
 
 ## Concluding remarks
 
